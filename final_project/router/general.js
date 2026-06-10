@@ -31,7 +31,7 @@ public_users.get('/author/:author',function (req, res) {
 
     Object.keys(books).forEach((key) => {
         if (books[key].author === author) {
-            matchingbooks[key] == books[key];
+            matchingbooks[key] = books[key];
         }
     });
 
