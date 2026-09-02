@@ -51,6 +51,20 @@ public_users.get('/isbn/:isbn',function (req, res) {
         return res.status(404).json({message: "Book not found"});
     }
  });
+
+ // Task 11: Get book details based on ISBN using async-await with Axios
+ public_users.get('/async/isbn/:isbn', async function (req, res) {
+    const isbn = req.params.isbn;
+
+    try {
+        const response = await axios.get(`http://localhost:5000/isbn/${isbn}`);
+
+       // return res.send(JSON.stringify(response.data, null, 4));
+       return res.send(response.data);
+    } catch (error) {
+        return res.status(404).json({message: "Book not found or error fetching book by ISBN"});
+    }
+ });
   
 // Get book details based on author
 public_users.get('/author/:author',function (req, res) {
@@ -97,6 +111,10 @@ public_users.get('/review/:isbn',function (req, res) {
     } else {
         return res.status(404).json({message: "Book not found"});
     }
+});
+
+public_users.get('/test', function (req, res) {
+    res.send("General router works");
 });
 
 module.exports.general = public_users;
