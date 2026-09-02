@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require("axios");
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
@@ -28,6 +29,17 @@ public_users.post("/register", (req,res) => {
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
     return res.send(JSON.stringify(books, null, 4));
+});
+
+// Task 10: Get all books using async-await with Axios
+public_users.get('/async/books', async function (req, res) {
+    try {
+        const response = await axios.get('http://localhost:5000/');
+
+        return res.send(response.data);
+    } catch (error) {
+        return res.status(500).json({message: "Error fetching books using Axios"});
+    }
 });
 
 // Get book details based on ISBN
